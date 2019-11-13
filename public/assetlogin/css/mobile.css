@@ -1,0 +1,69 @@
+﻿@media (max-width: 749px) {
+    .appBar {
+        display: none;
+    }
+
+    .body-content {
+        top: 105px;
+        left: 0;
+    }
+
+    body > .header {
+        left: 0;
+        height: 50px;
+    }
+
+        body > .header .navigation {
+            display: block;
+        }
+
+        body > .header .logo {
+            background-size: 35px 35px;
+            top: 0;
+            left: 50px;
+        }
+
+        body > .header h3 {
+            top: 0;
+            left: 110px;
+        }
+
+        body > .header ul {
+            right: 0;
+            height: 50px;
+            top: 0;
+        }
+
+    .bread {
+        top: 50px;
+        left: 0px;
+    }
+}
+
+@media (max-width: 519px) {
+    .body-content {
+        top: 65px;
+    }
+}
+
+@media (max-width: 500px) {
+    body > .header h3 {
+        display: none;
+    }
+
+    .col-xs-6 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1500px) {
+    .thumbnail-list > .item {
+        width: 20% !important;
+    }
+}
+
+@media (min-width: 1800px) {
+    .thumbnail-list > .item {
+        width: 16.666667% !important;
+    }
+}

@@ -1,0 +1,187 @@
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cổng thông tin cán bộ - Đại Học Vinh</title>
+
+    <link rel="stylesheet" href="assetlogin/css/bootstrap.css" />
+    <link rel="stylesheet" href="assetlogin/css/fonts.css" />
+    <link rel="stylesheet" href="assetlogin/css/mobile.css" />
+    <link rel="stylesheet" href="assetlogin/css/fontello.css" />
+    <link rel="stylesheet" href="assetlogin/css/login.css" />
+    <link rel="icon" href="assetlogin/images/logo.png" />
+</head>
+<body>
+    <div class="background"></div>
+    <div class="main">
+        <div class="container">
+            <div class="panel col-md-8">
+                <div class="panelImage col-md-6 col-sm-12 col-xs-12">
+                    <div class="logo"></div>
+                    <h2 class="university">Trường Đại học Vinh</h2>
+                    <h3 class="portal">Cổng thông tin Cán bộ</h3>
+                    <div style="bottom: 0; text-align: center; font-style: italic; color: #fff"><span>congthongtin@vinhuni.edu.vn</span></div>
+                </div>
+                <div class="panelLogin col-md-6 col-sm-12 col-xs-12" style="height: 380px">
+                    <form id="loginForm">
+                        <input name="__RequestVerificationToken" type="hidden" value="wwV8ojMqs8_C_6k0cd5U6XN_i9gWgopUeyTQFwX27-LSQ8uu0yUBPTDkYwDBpbrEHqpqWs7E6sTPSRfh5hCUngV5cVrxX9fBcaAqUnMV1Lw1" />
+                        <div class="title">Đăng nhập</div>
+                        <div class="errorBox"></div>
+                        <input type="text" name="Username" id="Username" placeholder="Tên đăng nhập" autofocus required />
+                        <input type="password" name="Password" id="Password" placeholder="Mật khẩu" required />
+                        <br /><br />
+                        <button type="submit" id="login_submit" autofocus>Đăng nhập</button>
+                        <a class="forgot" href="">Quên mật khẩu?</a>
+                    </form>
+                    <form id="forgotPasswordForm" style="display: none">
+                        <input name="__RequestVerificationToken" type="hidden" value="W4Wnh67NQXJUJQUHGZzNZWkiKzw9RBM4jx2ENRBB-KWlHCmBSSRR3Rd5O6KjWjwWXoSizzD44EUy0idMwC8D3LAjw0_Zv9eaPJ8xc6XwoZc1" />
+                        <div class="title">Quên mật khẩu</div>
+                        <div class="errorBox"></div>
+                        <input type="email" name="email" id="email" placeholder="Email" autofocus required />
+                        <br /><br />
+                        <button type="submit" id="forgot_submit" autofocus>Lấy lại mật khẩu</button>
+                        <br />
+                        <br />
+                        <div style="text-align: center"><span>Kiểm tra trong mục spam nếu không nhận được</span></div>
+                        <a class="forgot" href="">Đăng nhập</a>
+                    </form>
+                    <form id="changePasswordForm" style="display: none">
+                        <div class="title">Đổi mật khẩu</div>
+                        <div class="errorBox"></div>
+                        <input type="password" name="new-password" id="new-password" placeholder="Mật khẩu mới" required />
+                        <input type="password" name="re-password" id="re-password" placeholder="Nhập lại mật khẩu mới" required />
+                        <br /><br />
+                        <button type="submit" id="change_submit" autofocus>Đổi mật khẩu</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assetlogin/vendors/depot/jquery-3.2.1.js"></script>
+
+    <script>
+        $(".forgot").click(function (e) {
+            e.preventDefault();
+            $("#loginForm").slideToggle();
+            $("#forgotPasswordForm").slideToggle();
+        });
+
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
+            var $btn = $('#login_submit');
+            $btn.attr('disabled', 'disabled');
+            $btn.empty();
+            $btn.addClass("button-loading");
+            var data = $("#loginForm").serialize();
+            $.ajax({
+                type: "post",
+                data: data,
+                url: "/login/login",
+                success: function (result) {
+                    if (result == "success") {
+                        window.location.href = "/trang-chu";
+                        $(".errorBox").hide();
+                    }
+                    if (result === "changepassword") {
+                        $("#loginForm").slideToggle();
+                        $("#changePasswordForm").slideToggle();
+                        $(".errorBox").hide();
+                    }
+                    if (result === "fail") {
+                        $btn.removeAttr('disabled');
+                        $btn.text("Đăng nhập");
+                        $btn.removeClass("button-loading");
+                        $(".errorBox").text("Sai tên đăng nhập hoặc mật khẩu");
+                        $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+                        $("#Username").focus();
+                    }
+                }
+            })
+        })
+
+        $("#changePasswordForm").submit(function (e) {
+            e.preventDefault();
+            var $btn = $('#change_submit');
+            $btn.attr('disabled', 'disabled');
+            $btn.empty();
+            $btn.addClass("button-loading");
+            var newPassword = $("#new-password").val();
+            var rePassword = $("#re-password").val();
+            if (rePassword !== newPassword) {
+                $btn.removeAttr('disabled');
+                $btn.text("Đổi mật khẩu");
+                $btn.removeClass("button-loading");
+                $(".errorBox").text("Mật khẩu mới không khớp");
+                $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    data: {
+                        password: newPassword
+                    },
+                    url: "/login/changepasswordout",
+                    success: function (result) {
+                        if (result === "ok") {
+                            window.location.href = "/trang-chu";
+                            $(".errorBox").hide();
+                        }
+                        if (result === "fail") {
+                            $btn.removeAttr('disabled');
+                            $btn.text("Đổi mật khẩu");
+                            $btn.removeClass("button-loading");
+                            $(".errorBox").text("Lỗi, thử lại sau");
+                            $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+                        }
+                    }
+                })
+            }
+        })
+
+        $("#forgotPasswordForm").submit(function (e) {
+            e.preventDefault();
+            var $btn = $('#forgot_submit');
+            $btn.attr('disabled', 'disabled');
+            $btn.empty();
+            $btn.addClass("button-loading");
+            var data = $("#forgotPasswordForm").serialize();
+            $.ajax({
+                type: "post",
+                data: data,
+                url: "/login/forgotpassword",
+                success: function (result) {
+                    if (result === "notvalid") {
+                        $btn.removeAttr('disabled');
+                        $btn.text("Lấy lại mật khẩu");
+                        $btn.removeClass("button-loading");
+                        $(".errorBox").text("Email không tồn tại hoặc không được đăng ký trong hệ thống");
+                        $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+                    }
+                    if (result === "ok") {
+                        $btn.removeAttr('disabled');
+                        $btn.text("Lấy lại mật khẩu");
+                        $btn.removeClass("button-loading");
+                        $(".errorBox").text("Mật khẩu tạm thời đã được gửi về email");
+                        $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+                    }
+                    if (result === "fail") {
+                        $btn.removeAttr('disabled');
+                        $btn.text("Lấy lại mật khẩu");
+                        $btn.removeClass("button-loading");
+                        $(".errorBox").text("Lỗi, thử lại sau");
+                        $(".errorBox").slideDown(200).delay(7000).slideUp(200);
+                        $("#Username").focus();
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+﻿body {
+    font-family: Roboto, sans-serif;
+    background: #4f4f4f;
+}
+
+.logo {
+    margin: auto;
+    background-image: url(../images/logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 125px;
+    height: 125px;
+}
+
+.main {
+    margin: 5em auto;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: .75;
+    background: white url(../images/background.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(3px);
+}
+
+.panel {
+    margin: 4em auto;
+    background: white;
+    float: none;
+    clear: both;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.03),0 2px 12px 2px rgba(0,0,0,.5);
+    background-color: #37669E;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.panelImage,
+.panelLogin {
+    float: left;
+    padding: 5em 2em;
+    display: block;
+}
+
+    .panelImage img {
+        width: 100%;
+    }
+
+.panelLogin {
+    background: white;
+}
+
+.university, .portal {
+    color: #fff;
+    font-family: Roboto;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.university {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
+
+.portal {
+    /*font-size: 1.8em;*/
+    margin-top: 0.5em;
+}
+
+.panelLogin {
+    padding-left: 25px;
+}
+
+.title {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0 30px 0;
+    text-align: left;
+    color: #4f4f4f;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    outline: none;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #282F3D;
+    font-family: Roboto,sans-serif;
+    background-color: #fff;
+    border: 0 solid #E8E9EC;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-width: 0 0 1px;
+    border-radius: 0;
+    margin-bottom: 10px;
+    transition: all .1s linear 0s;
+}
+
+    input[type="text"]:focus, input[type="password"]:focus {
+        border-color: #07f;
+        box-shadow: 0 1px 0 0 #07f;
+    }
+
+.remember {
+    float: left;
+    margin-top: 10px;
+}
+
+.forgot {
+    float: right;
+    margin-top: 10px;
+}
+
+.remember label {
+    font-weight: normal;
+}
+
+button[type="submit"] {
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    background: #014a99;
+    font-family: Roboto, sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+    /*padding: 0 15px;*/
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: white;
+    /*margin-top: 10px;*/
+}
+
+.errorBox {
+    display: none;
+    margin-bottom: 11px;
+    text-align: center;
+    color: #BD2727;
+    padding: 5px 10px;
+    background-color: #FFD6D6;
+    background-clip: padding-box;
+    box-shadow: 0 0 0 1px rgba(189,39,39,.25);
+    line-height: 15px;
+}
+
+@media(max-width:1199px) {
+    .university, .portal {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .panelImage, .panelLogin {
+        padding: 2em;
+    }
+}
+
+@media(max-width:767px) {
+    .main {
+        margin: 0 auto;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .logo {
+        width: 96px;
+        height: 96px;
+    }
+
+    .university, .portal {
+        display: none;
+    }
+
+    .panelImage, .panelLogin {
+        padding: 1em;
+    }
+}
+
+.button-loading {
+    position: relative;
+    cursor: wait;
+}
+
+    .button-loading:before {
+        margin: -13px 0 0 -13px;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        content: '';
+        border-radius: 24px;
+        background-clip: padding-box;
+        border: rgba(255, 255, 255, 0.25) 2px solid;
+        border-top-color: #fff;
+        animation: animation-rotate 750ms linear infinite;
+    }
+
+@keyframes animation-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}

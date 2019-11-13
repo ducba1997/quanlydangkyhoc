@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Request;
+use Session;
 
 class LoginController extends Controller
 {
@@ -35,5 +39,31 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function getLogin()
+    {
+        return view('login');
+    }
+
+    public function postLogin(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'username'        =>     'required',
+                'password' => 'required'
+            ],
+            [
+                'username.required'      => 'Bạn chưa nhập tên đề tài',
+                'password'      => 'Bạn chưa nhập mật khẩu'
+            ]
+        );
+        if (Auth::attempt(['username'=>$req->input('username'),'password'=>$req->input('password')])) {
+            return "success";
+        } else {
+            Session::flash('error', 'Username hoặc mật khẩu không đúng');
+            return "fail";
+        }
     }
 }
