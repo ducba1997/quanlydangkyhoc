@@ -17,6 +17,7 @@ class CreateGiangvienTable extends Migration
             $table->bigIncrements('id');
             $table->string('username',20);               
             $table->string('email');
+            $table->bigInteger('nganh_id')->unsigned();
             $table->string('dienthoai');            
             $table->string('ghichu')->nullable();
             $table->timestamps();

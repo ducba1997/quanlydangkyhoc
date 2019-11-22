@@ -72,7 +72,6 @@ textarea {
 .text-area {
     height: 230px;
 }
-
 .modal-header #TieuDe {
     margin: 0;
 	font-family: inherit;
@@ -93,10 +92,11 @@ textarea {
 
 .navbar-inner {
     padding: 7px 0;
-    background: #00ba8b !important;
+    background: #2980B9 !important;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 .navbar-fixed-top {
@@ -214,7 +214,7 @@ textarea {
 
 
         .subnavbar .container > ul > li.active > a {
-            border-bottom: 3px solid #ff7f74;
+            border-bottom: 3px solid #2980B9;
             color: #383838;
         }
 

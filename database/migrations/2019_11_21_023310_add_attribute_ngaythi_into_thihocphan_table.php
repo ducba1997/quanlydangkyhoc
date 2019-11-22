@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHockyTable extends Migration
+class AddAttributeNgaythiIntoThihocphanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateHockyTable extends Migration
      */
     public function up()
     {
-        Schema::create('hocky', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('ten');
-            $table->date('tungay');
-            $table->date('denngay');
-            $table->timestamps();
+        Schema::table('thihocphan', function (Blueprint $table) {
+            $table->date('ngaythi');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateHockyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hocky');
+        Schema::table('thihocphan', function (Blueprint $table) {
+            $table->dropColumn('ngaythi');
+        });
     }
 }
